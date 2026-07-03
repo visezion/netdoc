@@ -53,7 +53,6 @@ class NetdocConfig(PluginConfig):
             )
             from extras.models import (  # noqa: F401 pylint: disable=import-outside-toplevel
                 ScriptModule,
-                ReportModule,
             )
 
             # Create/update data sources for NetDoc scripts on every restart
