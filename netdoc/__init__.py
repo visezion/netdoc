@@ -10,7 +10,7 @@ import shutil
 
 from django.conf import settings
 
-from extras.plugins import PluginConfig
+from netbox.plugins import PluginConfig
 
 PLUGIN_SETTINGS = settings.PLUGINS_CONFIG.get("netdoc", {})
 NTC_TEMPLATES_DIR = PLUGIN_SETTINGS.get("NTC_TEMPLATES_DIR")
