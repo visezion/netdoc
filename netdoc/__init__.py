@@ -5,7 +5,6 @@ __copyright__ = "Copyright 2022, Andrea Dainese"
 __license__ = "GPLv3"
 
 import os
-import pkgutil
 import shutil
 
 from django.conf import settings
@@ -14,8 +13,7 @@ from netbox.plugins import PluginConfig
 
 PLUGIN_SETTINGS = settings.PLUGINS_CONFIG.get("netdoc", {})
 NTC_TEMPLATES_DIR = PLUGIN_SETTINGS.get("NTC_TEMPLATES_DIR")
-PACKAGE = pkgutil.get_loader("netdoc")
-MODULE_PATH = os.path.dirname(PACKAGE.path)
+MODULE_PATH = os.path.dirname(__file__)
 
 
 class NetdocConfig(PluginConfig):
