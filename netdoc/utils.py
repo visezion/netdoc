@@ -28,9 +28,17 @@ from django.utils.module_loading import import_string
 
 from core.models import Job
 from extras.models import ScriptModule
-from utilities.utils import NetBoxFakeRequest
 from dcim.models import Interface
 from virtualization.models import VMInterface
+
+class NetBoxFakeRequest:
+    """Small request-like object used when queuing NetBox jobs outside a real HTTP request."""
+
+    def __init__(self, values=None):
+        values = values or {}
+        for key, value in values.items():
+            setattr(self, key, value)
+
 
 from netdoc.dictionaries import DiscoveryModeChoices
 
