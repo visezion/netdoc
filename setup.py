@@ -26,7 +26,7 @@ setup(
     author_email="andrea@adainese.it",
     license="GNU v3.0",
     install_requires=[
-        "setuptools<82",
+        "setuptools<81",
         "ipaddress==1.0.23",
         "jsonschema==3.2.0",
         "macaddress==2.0.2",
