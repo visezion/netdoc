@@ -6,6 +6,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NETBOX_DOCKER_DIR="${NETBOX_DOCKER_DIR:-${DOCKER_DIR:-$REPO_ROOT/../netbox-docker}}"
 OVERRIDE_FILE="${OVERRIDE_FILE:-$REPO_ROOT/docker/docker-compose.override.yml}"
 export NETDOC_PATH="${NETDOC_PATH:-$REPO_ROOT}"
+INSTALL_LOCAL_OVERRIDE="${INSTALL_LOCAL_OVERRIDE:-1}"
 BRANCH="${1:-}"
 ALLOW_DIRTY="${ALLOW_DIRTY:-0}"
 NETBOX_STARTUP_TIMEOUT="${NETBOX_STARTUP_TIMEOUT:-600}"
@@ -23,6 +24,7 @@ echo "Current commit: $CURRENT_COMMIT"
 echo "NetBox Docker directory: $NETBOX_DOCKER_DIR"
 echo "Compose override: $OVERRIDE_FILE"
 echo "NETDOC_PATH: $NETDOC_PATH"
+echo "Install local override into netbox-docker: $INSTALL_LOCAL_OVERRIDE"
 echo "NetBox startup timeout: ${NETBOX_STARTUP_TIMEOUT}s"
 echo "NetBox worker startup timeout: ${NETBOX_WORKER_STARTUP_TIMEOUT}s"
 
@@ -34,6 +36,12 @@ fi
 if [ ! -f "$OVERRIDE_FILE" ]; then
     echo "Could not find NetDoc compose override at: $OVERRIDE_FILE"
     exit 1
+fi
+
+if [ "$INSTALL_LOCAL_OVERRIDE" = "1" ]; then
+    LOCAL_OVERRIDE_PATH="$NETBOX_DOCKER_DIR/docker-compose.override.yml"
+    ln -sfn "$OVERRIDE_FILE" "$LOCAL_OVERRIDE_PATH"
+    echo "Linked compose override: $LOCAL_OVERRIDE_PATH -> $OVERRIDE_FILE"
 fi
 
 compose() {
